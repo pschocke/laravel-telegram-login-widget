@@ -1,6 +1,5 @@
 <?php
 
-
 namespace pschocke\TelegramLoginWidget\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;

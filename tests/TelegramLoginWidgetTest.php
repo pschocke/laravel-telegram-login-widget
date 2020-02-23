@@ -7,7 +7,6 @@ use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
 use pschocke\TelegramLoginWidget\TelegramLoginWidget;
-use pschocke\TelegramLoginWidget\TelegramLoginWidgetServiceProvider;
 
 class TelegramLoginWidgetTest extends TestCase
 {
@@ -23,12 +22,11 @@ class TelegramLoginWidgetTest extends TestCase
             'last_name' => 'Doe',
             'username' => 'JohnDoe',
             'photo_url' => 'https://google.com',
-            'auth_date' => time()
+            'auth_date' => time(),
         ];
 
         $this->generateHash();
     }
-
 
     /** @test */
     public function it_can_validate_a_valid_response_via_the_hash()
@@ -81,13 +79,13 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertInstanceOf(Collection::class, (new TelegramLoginWidget())->validateResponse($this->payload));
     }
 
-
     private function generateHash(): void
     {
         $data_check_arr = [];
         foreach ($this->payload as $key => $value) {
-            if(in_array($key, ['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date']))
-                $data_check_arr[] = $key . '=' . $value;
+            if (in_array($key, ['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date'])) {
+                $data_check_arr[] = $key.'='.$value;
+            }
         }
 
         sort($data_check_arr);
