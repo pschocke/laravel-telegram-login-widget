@@ -7,7 +7,8 @@ use Illuminate\Support\Collection;
 use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
-use pschocke\TelegramLoginWidget\TelegramLoginWidget;
+use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
+use pschocke\TelegramLoginWidget\TelegramLoginWidget as NormalTelegramLoginWidget;
 
 class TelegramLoginWidgetTest extends TestCase
 {
@@ -32,7 +33,7 @@ class TelegramLoginWidgetTest extends TestCase
     /** @test */
     public function it_can_validate_a_valid_response_via_the_hash()
     {
-        $this->assertInstanceOf(Collection::class, (new TelegramLoginWidget())->validateResponse($this->payload));
+        $this->assertInstanceOf(Collection::class, (new NormalTelegramLoginWidget())->validateResponse($this->payload));
     }
 
     /** @test */
@@ -40,7 +41,7 @@ class TelegramLoginWidgetTest extends TestCase
     {
         $this->payload['id'] = 1;
         $this->expectException(HashValidationException::class);
-        (new TelegramLoginWidget())->validateResponse($this->payload);
+        TelegramLoginWidget::validateResponse($this->payload);
     }
 
     /** @test */
@@ -48,14 +49,14 @@ class TelegramLoginWidgetTest extends TestCase
     {
         unset($this->payload['id']);
         $this->expectException(NotAllAttributesException::class);
-        (new TelegramLoginWidget())->validateResponse($this->payload);
+        TelegramLoginWidget::validateResponse($this->payload);
     }
 
     /** @test */
     public function it_ignores_other_parameter()
     {
         $this->payload['test'] = 2;
-        $validTelegramData = (new TelegramLoginWidget())->validateResponse($this->payload);
+        $validTelegramData = TelegramLoginWidget::validateResponse($this->payload);
         $this->assertEmpty($validTelegramData->get('test'));
     }
 
@@ -66,7 +67,7 @@ class TelegramLoginWidgetTest extends TestCase
         $this->generateHash();
 
         $this->expectException(ResponseOutdatedException::class);
-        (new TelegramLoginWidget())->validateResponse($this->payload);
+        TelegramLoginWidget::validateResponse($this->payload);
     }
 
     /** @test */
@@ -77,7 +78,7 @@ class TelegramLoginWidgetTest extends TestCase
 
         config(['telegramloginwidget.validate-auth-date' => false]);
 
-        $this->assertInstanceOf(Collection::class, (new TelegramLoginWidget())->validateResponse($this->payload));
+        $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validateResponse($this->payload));
     }
 
     /** @test */
@@ -85,7 +86,7 @@ class TelegramLoginWidgetTest extends TestCase
     {
         $data = new Request();
         $data->replace($this->payload);
-        $this->assertInstanceOf(Collection::class, (new TelegramLoginWidget())->validateResponse($data));
+        $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validateResponse($data));
     }
 
     private function generateHash(): void

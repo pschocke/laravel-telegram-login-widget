@@ -34,7 +34,10 @@
         "laravel": {
             "providers": [
                 "pschocke\\TelegramLoginWidget\\TelegramLoginWidgetServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "MyPackage": "pschocke\\TelegramLoginWidget\\Facades\\MyPackage"
+            }
         }
     }
 }
