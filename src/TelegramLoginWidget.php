@@ -11,7 +11,7 @@ class TelegramLoginWidget
 {
     public function validateResponse($response): Collection
     {
-        if(is_array($response)) {
+        if (is_array($response)) {
             $response = collect($response);
         }
 
@@ -27,9 +27,8 @@ class TelegramLoginWidget
 
         $collection = $collection->only($requiredAttributes);
 
-        if($collection->count() != count($requiredAttributes)) {
+        if ($collection->count() != count($requiredAttributes))
             throw new NotAllAttributesException();
-        }
 
         return $collection;
     }
@@ -40,15 +39,12 @@ class TelegramLoginWidget
 
         $data = $collection->except('hash');
 
-        $data_check_arr = [];
-
-        $data->each(function($item, $key) use (&$data_check_arr) {
-            $data_check_arr[] = $key . '=' . $item;
-        });
-
-        sort($data_check_arr);
-
-        $data_check_string = implode("\n", $data_check_arr);
+        $data_check_string = $data->map(function($item, $key) {
+                return $key . '=' . $item;
+            })
+            ->values()
+            ->sort()
+            ->implode("\n");
 
         $hash = hash_hmac('sha256', $data_check_string, $secret_key);
 
