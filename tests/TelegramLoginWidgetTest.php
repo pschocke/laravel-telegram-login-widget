@@ -3,6 +3,7 @@
 namespace pschocke\TelegramLoginWidget\Tests;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Response;
 use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
@@ -76,6 +77,13 @@ class TelegramLoginWidgetTest extends TestCase
 
         config(['telegramloginwidget.validate-auth-date' => false]);
 
+        $this->assertInstanceOf(Collection::class, (new TelegramLoginWidget())->validateResponse($this->payload));
+    }
+
+    /** @test */
+    public function it_can_handle_a_response_as_function_parameter()
+    {
+        $data = new Response($this->payload);
         $this->assertInstanceOf(Collection::class, (new TelegramLoginWidget())->validateResponse($this->payload));
     }
 
