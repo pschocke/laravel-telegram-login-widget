@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Class TelegramLoginWidget
  * @method static Collection validateResponse(array|Request|Collection $collection)
  */
 class TelegramLoginWidget extends Facade
