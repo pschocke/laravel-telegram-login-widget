@@ -2,6 +2,7 @@
 
 namespace pschocke\TelegramLoginWidget;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException;
@@ -11,9 +12,7 @@ class TelegramLoginWidget
 {
     public function validateResponse($response): Collection
     {
-        if (is_array($response)) {
-            $response = collect($response);
-        }
+        $response = $this->convertResponseToCollection($response);
 
         $response = $this->checkAndGetResponseData($response);
 
@@ -57,5 +56,18 @@ class TelegramLoginWidget
         }
 
         return $data;
+    }
+
+    /**
+     * @param $response
+     * @return Collection
+     */
+    private function convertResponseToCollection($response): Collection
+    {
+        if ($response instanceof Request) {
+            return collect($response->all());
+        }
+
+        return Collection::wrap($response);
     }
 }
