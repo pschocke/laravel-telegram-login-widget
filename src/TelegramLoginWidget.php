@@ -18,7 +18,6 @@ class TelegramLoginWidget
         $response = $this->checkAndGetResponseData($response);
 
         return $this->checkHashes($response);
-
     }
 
     private function checkAndGetResponseData(Collection $collection)
@@ -27,8 +26,9 @@ class TelegramLoginWidget
 
         $collection = $collection->only($requiredAttributes);
 
-        if ($collection->count() != count($requiredAttributes))
+        if ($collection->count() != count($requiredAttributes)) {
             throw new NotAllAttributesException();
+        }
 
         return $collection;
     }
@@ -39,9 +39,9 @@ class TelegramLoginWidget
 
         $data = $collection->except('hash');
 
-        $data_check_string = $data->map(function($item, $key) {
-                return $key . '=' . $item;
-            })
+        $data_check_string = $data->map(function ($item, $key) {
+            return $key.'='.$item;
+        })
             ->values()
             ->sort()
             ->implode("\n");
