@@ -14,7 +14,12 @@ Laravel Telegram Login Widget. Easily integrate Telegrams login widget to send T
 Via Composer
 
 ``` bash
-$ composer require pschocke/laravel-telegram-login-widget
+composer require pschocke/laravel-telegram-login-widget
+```
+
+Then publish the configuration file
+``` bash
+$ php artisan vendor:publish --tag=telegramloginwidget
 ```
 
 ## Usage
@@ -28,14 +33,30 @@ Create a route to handle the callback/redirect after the the successful connecti
 your telegram bot. Telegram uses a hash to allow you to verify the response is from Telegram. Here comes this package in play:
 
 ```php
+use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
 
 class TelegramCallbackController extends Controller {
 
-    public function __invoke(Request $request, TelegramLoginWidget $widget) {
-        $telegramUser;
-        
+    public function __invoke(Request $request) {
+        if($telegramUser = TelegramLoginWidget::validateResponse($request)) {
+            // user is valid
+        }
+        // telegram response is not valid. Account connection failed
+    }
+}
+```
+
+if you want more control over the response, you can use the `validateResponseWithError()` method to catch more fine tuned errors: 
+
+```php
+use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
+
+class TelegramCallbackController extends Controller {
+
+    public function __invoke(Request $request) {
+        $telegramUser = [];
         try {
-            $telegramUser = $widget->validateResponse($request);
+            $telegramUser = TelegramLoginWidget::validateResponseWithError($request);
         } catch(pschocke\TelegramLoginWidget\Exceptions\HashValidationException $e) {
             // the response is not from telegram
         } catch(pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException $e) {
@@ -45,7 +66,6 @@ class TelegramCallbackController extends Controller {
         }
     }
 }
-
 ```
 
 At this stage, `$telegramUser` contains a collection of all attributes Telegram provides: id, first_name, last_name, username, photo_url and auth_date.
