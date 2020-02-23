@@ -92,6 +92,7 @@ class TelegramLoginWidgetTest extends TestCase
     private function generateHash(): void
     {
         $data_check_arr = [];
+
         foreach ($this->payload as $key => $value) {
             if (in_array($key, ['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date'])) {
                 $data_check_arr[] = $key.'='.$value;
