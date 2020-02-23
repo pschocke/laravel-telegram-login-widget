@@ -1,0 +1,40 @@
+{
+    "name": "pschocke/telegramloginwidget",
+    "description": "Easily integrate Telegrams login widget into your Laravel application to send Telegram messages",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Patrick Schocke",
+            "email": "patrick@ausbildung-ms.de",
+            "homepage": "https://github.com/pschocke/"
+        }
+    ],
+    "homepage": "https://github.com/pschocke/telegramloginwidget",
+    "keywords": ["Laravel", "TelegramLoginWidget"],
+    "require": {
+        "illuminate/support": "~5|~6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3|~4",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "pschocke\\TelegramLoginWidget\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "pschocke\\TelegramLoginWidget\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "pschocke\\TelegramLoginWidget\\TelegramLoginWidgetServiceProvider"
+            ]
+        }
+    }
+}
