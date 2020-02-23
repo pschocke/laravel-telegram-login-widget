@@ -19,7 +19,9 @@ class TelegramLoginWidget
     {
         try {
             return $this->validateResponseWithError($response);
-        } catch (TelegramException $exception) {}
+        } catch (TelegramException $exception) {
+
+        }
 
         return false;
     }
