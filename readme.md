@@ -5,6 +5,7 @@
 [![Build Status][ico-travis]][link-travis]
 [![Quality Score][ico-scrutinizer]][link-scrutinizer]
 [![StyleCI][ico-styleci]][link-styleci]
+[![codecov][ico-codecov]][link-codecov]
 
 Laravel Telegram Login Widget. Easily integrate Telegrams login widget to send Telegram messages.
 
@@ -29,8 +30,10 @@ your telegram bot. Telegram uses a hash to allow you to verify the response is f
 ```php
 
 class TelegramCallbackController extends Controller {
-    public function __invoce(Request $request, TelegramLoginWidget $widget) {
+
+    public function __invoke(Request $request, TelegramLoginWidget $widget) {
         $telegramUser;
+        
         try {
             $telegramUser = $widget->validateResponse($request);
         } catch(pschocke\TelegramLoginWidget\Exceptions\HashValidationException $e) {
@@ -75,11 +78,13 @@ MIT. Please see the [license file](license.md) for more information.
 [ico-travis]: https://img.shields.io/travis/pschocke/laravel-telegram-login-widget/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/242549196/shield
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/pschocke/laravel-telegram-login-widget.svg?style=flat-square
+[ico-codecov]: https://codecov.io/gh/pschocke/laravel-telegram-login-widget/branch/master/graph/badge.svg
 
 [link-packagist]: https://packagist.org/packages/pschocke/laravel-telegram-login-widget
 [link-downloads]: https://packagist.org/packages/pschocke/laravel-telegram-login-widget
 [link-travis]: https://travis-ci.org/pschocke/laravel-telegram-login-widget
 [link-styleci]: https://styleci.io/repos/242549196
 [link-scrutinizer]: https://scrutinizer-ci.com/g/pschocke/laravel-telegram-login-widget
+[link-codecov]: https://codecov.io/gh/pschocke/laravel-telegram-login-widget
 [link-author]: https://github.com/pschocke
 [link-contributors]: ../../contributors
