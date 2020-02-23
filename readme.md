@@ -5,21 +5,46 @@
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+Laravel Telegram Login Widget. Easily integrate Telegrams login widget to send Telegram messages.
 
 ## Installation
 
 Via Composer
 
 ``` bash
-$ composer require pschocke/telegramloginwidget
+$ composer require pschocke/laravel-telegram-login-widget
 ```
 
 ## Usage
 
-## Change log
+First you have to [create a bot](https://core.telegram.org/bots#3-how-do-i-create-a-bot) at Telegram.
+After that [set up your login widget](https://core.telegram.org/widgets/login) in your frontend.
 
-Please see the [changelog](changelog.md) for more information on what has changed recently.
+Create an env variable `TELEGRAM_BOT_TOKEN` with your bots token
+
+Create a route to handle the callback/redirect after the the successful connection between the user account and 
+your telegram bot. Telegram uses a hash to allow you to verify the response is from Telegram. Here comes this package in play:
+
+```php
+
+class TelegramCallbackController extends Controller {
+    public function __invoce(Request $request, TelegramLoginWidget $widget) {
+        $telegramUser;
+        try {
+            $telegramUser = $widget->validateResponse($request);
+        } catch(pschocke\TelegramLoginWidget\Exceptions\HashValidationException $e) {
+            // the response is not from telegram
+        } catch(pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException $e) {
+            // the response doens't contain all userdata
+        } catch(pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException $e) {
+            // the response is outdated.
+        }
+    }
+}
+
+```
+
+At this stage, `$telegramUser` contains a collection of all attributes Telegram provides: id, first_name, last_name, username, photo_url and auth_date.
 
 ## Testing
 
@@ -37,21 +62,21 @@ If you discover any security related issues, please email author email instead o
 
 ## Credits
 
-- [author name][link-author]
+- [Patrick Schocke][link-author]
 - [All Contributors][link-contributors]
 
 ## License
 
-license. Please see the [license file](license.md) for more information.
+MIT. Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/pschocke/telegramloginwidget.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/pschocke/telegramloginwidget.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/pschocke/telegramloginwidget/master.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/12345678/shield
+[ico-version]: https://img.shields.io/packagist/v/pschocke/laravel-telegram-login-widget.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/pschocke/laravel-telegram-login-widget.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/pschocke/laravel-telegram-login-widget/master.svg?style=flat-square
+[ico-styleci]: https://styleci.io/repos/242549196/shield
 
-[link-packagist]: https://packagist.org/packages/pschocke/telegramloginwidget
-[link-downloads]: https://packagist.org/packages/pschocke/telegramloginwidget
-[link-travis]: https://travis-ci.org/pschocke/telegramloginwidget
-[link-styleci]: https://styleci.io/repos/12345678
+[link-packagist]: https://packagist.org/packages/pschocke/laravel-telegram-login-widget
+[link-downloads]: https://packagist.org/packages/pschocke/laravel-telegram-login-widget
+[link-travis]: https://travis-ci.org/pschocke/laravel-telegram-login-widget
+[link-styleci]: https://styleci.io/repos/242549196
 [link-author]: https://github.com/pschocke
 [link-contributors]: ../../contributors

@@ -1,5 +1,5 @@
 {
-    "name": "pschocke/telegramloginwidget",
+    "name": "pschocke/laravel-telegram-login-widget",
     "description": "Easily integrate Telegrams login widget into your Laravel application to send Telegram messages",
     "license": "MIT",
     "authors": [
