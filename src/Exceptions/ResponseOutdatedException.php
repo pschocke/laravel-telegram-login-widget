@@ -2,8 +2,6 @@
 
 namespace pschocke\TelegramLoginWidget\Exceptions;
 
-use Exception;
-
-class ResponseOutdatedException extends Exception
+class ResponseOutdatedException extends TelegramException
 {
 }

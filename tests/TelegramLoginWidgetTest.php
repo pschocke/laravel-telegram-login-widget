@@ -41,7 +41,8 @@ class TelegramLoginWidgetTest extends TestCase
     {
         $this->payload['id'] = 1;
         $this->expectException(HashValidationException::class);
-        TelegramLoginWidget::validateResponse($this->payload);
+        TelegramLoginWidget::validateResponseWithError($this->payload);
+        $this->assertFalse(TelegramLoginWidget::validateResponse($this->payload));
     }
 
     /** @test */
@@ -49,7 +50,8 @@ class TelegramLoginWidgetTest extends TestCase
     {
         unset($this->payload['id']);
         $this->expectException(NotAllAttributesException::class);
-        TelegramLoginWidget::validateResponse($this->payload);
+        TelegramLoginWidget::validateResponseWithError($this->payload);
+        $this->assertFalse(TelegramLoginWidget::validateResponse($this->payload));
     }
 
     /** @test */
@@ -67,7 +69,8 @@ class TelegramLoginWidgetTest extends TestCase
         $this->generateHash();
 
         $this->expectException(ResponseOutdatedException::class);
-        TelegramLoginWidget::validateResponse($this->payload);
+        TelegramLoginWidget::validateResponseWithError($this->payload);
+        $this->assertFalse(TelegramLoginWidget::validateResponse($this->payload));
     }
 
     /** @test */

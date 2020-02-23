@@ -2,8 +2,6 @@
 
 namespace pschocke\TelegramLoginWidget\Exceptions;
 
-use Exception;
-
-class NotAllAttributesException extends Exception
+class NotAllAttributesException extends TelegramException
 {
 }

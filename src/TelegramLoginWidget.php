@@ -7,10 +7,31 @@ use Illuminate\Support\Collection;
 use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
+use pschocke\TelegramLoginWidget\Exceptions\TelegramException;
 
 class TelegramLoginWidget
 {
-    public function validateResponse($response): Collection
+    /**
+     * @param $response
+     * @return bool|Collection
+     */
+    public function validateResponse($response)
+    {
+        try {
+            return $this->validateResponseWithError($response);
+        } catch (TelegramException $exception) {
+            return false;
+        }
+    }
+
+    /**
+     * @param $response
+     * @return Collection
+     * @throws HashValidationException
+     * @throws NotAllAttributesException
+     * @throws ResponseOutdatedException
+     */
+    public function validateResponseWithError($response): Collection
     {
         $response = $this->convertResponseToCollection($response);
 

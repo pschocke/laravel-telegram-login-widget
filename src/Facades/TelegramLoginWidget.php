@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static Collection validateResponse(array|Request|Collection $collection)
+ * @method static Collection|bool validateResponseWithError(array|Request|Collection $collection)
  */
 class TelegramLoginWidget extends Facade
 {
