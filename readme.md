@@ -38,7 +38,7 @@ use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
 class TelegramCallbackController extends Controller {
 
     public function __invoke(Request $request) {
-        if($telegramUser = TelegramLoginWidget::validateResponse($request)) {
+        if($telegramUser = TelegramLoginWidget::validate($request)) {
             // user is valid
         }
         // telegram response is not valid. Account connection failed
@@ -46,7 +46,7 @@ class TelegramCallbackController extends Controller {
 }
 ```
 
-if you want more control over the response, you can use the `validateResponseWithError()` method to catch more fine tuned errors: 
+if you want more control over the response, you can use the `validateWithError()` method to catch more fine tuned errors: 
 
 ```php
 use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
@@ -56,7 +56,7 @@ class TelegramCallbackController extends Controller {
     public function __invoke(Request $request) {
         $telegramUser = [];
         try {
-            $telegramUser = TelegramLoginWidget::validateResponseWithError($request);
+            $telegramUser = TelegramLoginWidget::validateWithError($request);
         } catch(pschocke\TelegramLoginWidget\Exceptions\HashValidationException $e) {
             // the response is not from telegram
         } catch(pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException $e) {
