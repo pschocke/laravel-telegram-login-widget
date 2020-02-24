@@ -15,14 +15,16 @@ class TelegramLoginWidget
      * @param $response
      * @return bool|Collection
      */
-    public function validateResponse($response)
+    public function validate($response)
     {
+        $collection = [];
         try {
-            return $this->validateResponseWithError($response);
+            $collection = $this->validateWithError($response);
         } catch (TelegramException $exception) {
+            return false;
         }
 
-        return false;
+        return $collection;
     }
 
     /**
@@ -32,7 +34,7 @@ class TelegramLoginWidget
      * @throws NotAllAttributesException
      * @throws ResponseOutdatedException
      */
-    public function validateResponseWithError($response): Collection
+    public function validateWithError($response): Collection
     {
         $response = $this->convertResponseToCollection($response);
 
