@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
+![run-tests](https://github.com/pschocke/laravel-telegram-login-widget/workflows/run-tests/badge.svg?branch=master)
 [![Quality Score][ico-scrutinizer]][link-scrutinizer]
 [![StyleCI][ico-styleci]][link-styleci]
 [![codecov][ico-codecov]][link-codecov]
