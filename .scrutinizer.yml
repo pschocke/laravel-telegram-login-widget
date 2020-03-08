@@ -1,18 +1,6 @@
 build:
-  nodes:
-    analysis:
-      environment:
-        php:
-          version: 7.3  # or any other released version
-      project_setup:
-        override:
-          - 'true'
-      tests:
-        override:
-          - php-scrutinizer-run
-          -
-            command: phpcs-run
-            use_website_config: true
+  environment:
+    php: 7.3  # or any other released version
 
 filter:
   excluded_paths: [tests/*]
