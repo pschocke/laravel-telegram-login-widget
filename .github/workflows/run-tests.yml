@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.4, 7.3, 7.2]
+        php: [7.4, 7.3]
         laravel: [7.*, 6.*]
         dependency-version: [prefer-lowest, prefer-stable]
         include:
@@ -19,7 +19,7 @@ jobs:
           - laravel: 6.*
             testbench: 4.*
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
     steps:
       - name: Checkout code
