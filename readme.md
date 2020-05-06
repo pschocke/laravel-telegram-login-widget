@@ -19,7 +19,7 @@ composer require pschocke/laravel-telegram-login-widget
 
 Then publish the configuration file
 ``` bash
-$ php artisan vendor:publish --tag=telegramloginwidget
+php artisan vendor:publish --tag=telegramloginwidget.config
 ```
 
 ## Usage
