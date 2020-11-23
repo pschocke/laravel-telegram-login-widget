@@ -5,7 +5,6 @@ namespace pschocke\TelegramLoginWidget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
-use pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
 use pschocke\TelegramLoginWidget\Exceptions\TelegramException;
 
@@ -29,7 +28,6 @@ class TelegramLoginWidget
      * @param $response
      * @return Collection
      * @throws HashValidationException
-     * @throws NotAllAttributesException
      * @throws ResponseOutdatedException
      */
     public function validateWithError($response): Collection
@@ -45,13 +43,7 @@ class TelegramLoginWidget
     {
         $requiredAttributes = ['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date', 'hash'];
 
-        $collection = $collection->only($requiredAttributes);
-
-        if ($collection->count() != count($requiredAttributes)) {
-            throw new NotAllAttributesException();
-        }
-
-        return $collection;
+        return $collection->only($requiredAttributes);
     }
 
     private function checkHashes(Collection $collection)

@@ -5,7 +5,6 @@ namespace pschocke\TelegramLoginWidget\Tests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
-use pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
 use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
 use pschocke\TelegramLoginWidget\TelegramLoginWidget as NormalTelegramLoginWidget;
@@ -46,12 +45,11 @@ class TelegramLoginWidgetTest extends TestCase
     }
 
     /** @test */
-    public function it_can_detect_that_not_every_data_is_present()
+    public function it_works_with_optional_fields_in_response()
     {
-        unset($this->payload['id']);
-        $this->expectException(NotAllAttributesException::class);
-        TelegramLoginWidget::validateWithError($this->payload);
-        $this->assertFalse(TelegramLoginWidget::validate($this->payload));
+        $this->payload['last_name'] = "";
+        $this->generateHash();
+        $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($this->payload));
     }
 
     /** @test */

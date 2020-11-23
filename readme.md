@@ -59,8 +59,6 @@ class TelegramCallbackController extends Controller {
             $telegramUser = TelegramLoginWidget::validateWithError($request);
         } catch(pschocke\TelegramLoginWidget\Exceptions\HashValidationException $e) {
             // the response is not from telegram
-        } catch(pschocke\TelegramLoginWidget\Exceptions\NotAllAttributesException $e) {
-            // the response doens't contain all userdata
         } catch(pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException $e) {
             // the response is outdated.
         }
