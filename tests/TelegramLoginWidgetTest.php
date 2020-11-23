@@ -47,7 +47,7 @@ class TelegramLoginWidgetTest extends TestCase
     /** @test */
     public function it_works_with_optional_fields_in_response()
     {
-        $this->payload['last_name'] = "";
+        $this->payload['last_name'] = '';
         $this->generateHash();
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($this->payload));
     }
