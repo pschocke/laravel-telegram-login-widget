@@ -27,6 +27,7 @@ class TelegramLoginWidget
     /**
      * @param $response
      * @return Collection
+     *
      * @throws HashValidationException
      * @throws ResponseOutdatedException
      */
