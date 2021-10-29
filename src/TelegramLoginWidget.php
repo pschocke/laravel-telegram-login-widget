@@ -41,7 +41,7 @@ class TelegramLoginWidget
     }
 
     /**
-     * @param Collection $collection
+     * @param  Collection  $collection
      * @return Collection
      */
     private function checkAndGetResponseData(Collection $collection): Collection
@@ -52,8 +52,9 @@ class TelegramLoginWidget
     }
 
     /**
-     * @param Collection $collection
+     * @param  Collection  $collection
      * @return Collection
+     *
      * @throws HashValidationException
      * @throws ResponseOutdatedException
      */
