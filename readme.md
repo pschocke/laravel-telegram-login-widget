@@ -9,6 +9,8 @@
 
 Laravel Telegram Login Widget. Easily integrate Telegrams login widget to send Telegram messages.
 
+You can view a full video of the installation process an usage [here](https://www.youtube.com/watch?v=tUATaHDW6FY), where we build an app that sends Telegram notifications from start to finish.
+
 ## Installation
 
 Via Composer
@@ -67,6 +69,11 @@ class TelegramCallbackController extends Controller {
 ```
 
 At this stage, `$telegramUser` contains a collection of all attributes Telegram provides: id, first_name, last_name, username, photo_url and auth_date.
+
+```php
+echo $telegramUser->first_name; // Max
+echo $telegramUser->last_name; // Mustermann 
+```
 
 ## Testing
 
