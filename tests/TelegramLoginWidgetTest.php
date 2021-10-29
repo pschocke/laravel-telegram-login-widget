@@ -8,6 +8,7 @@ use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
 use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
 use pschocke\TelegramLoginWidget\TelegramLoginWidget as NormalTelegramLoginWidget;
+use Throwable;
 
 class TelegramLoginWidgetTest extends TestCase
 {
@@ -88,6 +89,19 @@ class TelegramLoginWidgetTest extends TestCase
         $data = new Request();
         $data->replace($this->payload);
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($data));
+    }
+
+    /** @test */
+    public function it_sets_the_correct_values_in_the_collection()
+    {
+        $telegramUser = (new NormalTelegramLoginWidget())->validate($this->payload);
+
+        $actual = $this->payload;
+        unset($actual['hash']);
+
+        foreach ($actual as $key => $value) {
+            $this->assertSame($value, $telegramUser->get($key));
+        }
     }
 
     private function generateHash(): void
