@@ -37,17 +37,27 @@ class TelegramLoginWidget
 
         $response = $this->checkAndGetResponseData($response);
 
-        return $this->checkHashes($response);
+        return $this->checkHash($response);
     }
 
-    private function checkAndGetResponseData(Collection $collection)
+    /**
+     * @param Collection $collection
+     * @return Collection
+     */
+    private function checkAndGetResponseData(Collection $collection): Collection
     {
         $requiredAttributes = ['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date', 'hash'];
 
         return $collection->only($requiredAttributes);
     }
 
-    private function checkHashes(Collection $collection)
+    /**
+     * @param Collection $collection
+     * @return Collection
+     * @throws HashValidationException
+     * @throws ResponseOutdatedException
+     */
+    private function checkHash(Collection $collection): Collection
     {
         $secret_key = hash('sha256', config('telegramloginwidget.bot-token'), true);
 
