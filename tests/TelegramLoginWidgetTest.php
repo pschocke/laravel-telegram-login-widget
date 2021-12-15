@@ -8,7 +8,6 @@ use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
 use pschocke\TelegramLoginWidget\Facades\TelegramLoginWidget;
 use pschocke\TelegramLoginWidget\TelegramLoginWidget as NormalTelegramLoginWidget;
-use Throwable;
 
 class TelegramLoginWidgetTest extends TestCase
 {
