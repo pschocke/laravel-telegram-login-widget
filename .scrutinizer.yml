@@ -1,6 +1,6 @@
 build:
   environment:
-    php: 7.3  # or any other released version
+    php: 8.0  # or any other released version
 
 filter:
   excluded_paths: [tests/*]
