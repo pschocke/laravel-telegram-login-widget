@@ -7,9 +7,17 @@ use Illuminate\Support\Collection;
 use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
 use pschocke\TelegramLoginWidget\Exceptions\TelegramException;
+use TgWebValid\TgWebValid;
 
 class TelegramLoginWidget
 {
+    private TgWebValid $validator;
+
+    public function __construct()
+    {
+        $this->validator = new TgWebValid(config('telegramloginwidget.bot-token'));
+    }
+
     /**
      * @param $response
      * @return bool|Collection
@@ -60,26 +68,17 @@ class TelegramLoginWidget
      */
     private function checkHash(Collection $collection): Collection
     {
-        $secret_key = hash('sha256', config('telegramloginwidget.bot-token'), true);
+        $loginWidget = $this->validator->validateLoginWidget($collection->toArray());
 
-        $data = $collection->except('hash');
-
-        $data_check_string = $data->map(function ($item, $key) {
-            return $key.'='.$item;
-        })
-            ->values()
-            ->sort()
-            ->implode("\n");
-
-        $hash = hash_hmac('sha256', $data_check_string, $secret_key);
-
-        if (strcmp($hash, $collection->get('hash')) !== 0) {
+        if (!$loginWidget) {
             throw new HashValidationException;
         }
 
-        if (config('telegramloginwidget.validate-auth-date') && time() - $collection->get('auth_date') > 86400) {
+        if (config('telegramloginwidget.validate-auth-date') && time() - $loginWidget->authDate > 86400) {
             throw new ResponseOutdatedException;
         }
+
+        $data = $collection->except('hash');
 
         return $data;
     }
