@@ -70,7 +70,7 @@ class TelegramLoginWidget
     {
         $loginWidget = $this->validator->validateLoginWidget($collection->toArray());
 
-        if (!$loginWidget) {
+        if (! $loginWidget) {
             throw new HashValidationException;
         }
 
