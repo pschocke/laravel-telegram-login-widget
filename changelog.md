@@ -1,8 +1,6 @@
 # Changelog
 
-All notable changes to `TelegramLoginWidget` will be documented in this file.
-
-## [2.0.0] - 2026-03-02
+## [2.1.0] - 2026-03-02
 
 ### Added
 - Support for PHP 8.4 and 8.5.
@@ -28,7 +26,34 @@ All notable changes to `TelegramLoginWidget` will be documented in this file.
 - StyleCI integration and configuration.
 - Codecov badges and unused TravisCI links.
 
-## Version 1.0
+## [2.0.0] - 2022-04-02
 
 ### Added
-- Everything
+- Support for Laravel 9.
+
+### Removed
+- Support for Laravel versions below 9.
+
+## [1.2.1] - 2020-11-23
+
+### Changed
+- Removed check that Telegram response contains all required values, because some of them are optional.
+
+### Removed
+- `NotAllAttributesException` from codebase.
+
+## [1.2.0] - 2020-10-27
+
+### Added
+- Support for Laravel 8.
+
+## [1.1.0] - 2020-03-08
+
+### Added
+- Support for Laravel 7.
+- Moved from TravisCI to GitHub Actions for testing.
+
+## [1.0.0] - 2020-02-24
+
+### Added
+- Initial Release.
