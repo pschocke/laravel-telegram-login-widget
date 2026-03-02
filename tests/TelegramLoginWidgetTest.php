@@ -11,7 +11,8 @@ use pschocke\TelegramLoginWidget\TelegramLoginWidget as NormalTelegramLoginWidge
 
 class TelegramLoginWidgetTest extends TestCase
 {
-    private $payload;
+    /** @var array<string, mixed> */
+    private array $payload;
 
     protected function setUp(): void
     {
@@ -29,14 +30,14 @@ class TelegramLoginWidgetTest extends TestCase
         $this->generateHash();
     }
 
-    /** @test */
-    public function it_can_validate_a_valid_response_via_the_hash()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_can_validate_a_valid_response_via_the_hash(): void
     {
         $this->assertInstanceOf(Collection::class, (new NormalTelegramLoginWidget())->validate($this->payload));
     }
 
-    /** @test */
-    public function it_can_validate_an_invalid_response_via_the_hash()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_can_validate_an_invalid_response_via_the_hash(): void
     {
         $this->payload['id'] = 1;
         $this->expectException(HashValidationException::class);
@@ -44,24 +45,25 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertFalse(TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
-    public function it_works_with_optional_fields_in_response()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_works_with_optional_fields_in_response(): void
     {
         $this->payload['last_name'] = '';
         $this->generateHash();
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
-    public function it_ignores_other_parameter()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_ignores_other_parameter(): void
     {
         $this->payload['test'] = 2;
         $validTelegramData = TelegramLoginWidget::validate($this->payload);
+        $this->assertInstanceOf(Collection::class, $validTelegramData);
         $this->assertEmpty($validTelegramData->get('test'));
     }
 
-    /** @test */
-    public function it_checks_the_auth_date_by_default()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_checks_the_auth_date_by_default(): void
     {
         $this->payload['auth_date'] = time() - 100000;
         $this->generateHash();
@@ -71,8 +73,8 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertFalse(TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
-    public function it_ignores_the_auth_date_when_configured()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_ignores_the_auth_date_when_configured(): void
     {
         $this->payload['auth_date'] = time() - 100000;
         $this->generateHash();
@@ -82,18 +84,19 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
-    public function it_can_handle_a_response_as_function_parameter()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_can_handle_a_response_as_function_parameter(): void
     {
         $data = new Request();
         $data->replace($this->payload);
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($data));
     }
 
-    /** @test */
-    public function it_sets_the_correct_values_in_the_collection()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_sets_the_correct_values_in_the_collection(): void
     {
         $telegramUser = (new NormalTelegramLoginWidget())->validate($this->payload);
+        $this->assertInstanceOf(Collection::class, $telegramUser);
 
         $actual = $this->payload;
         unset($actual['hash']);
@@ -109,12 +112,16 @@ class TelegramLoginWidgetTest extends TestCase
 
         foreach ($this->payload as $key => $value) {
             if (in_array($key, ['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date'])) {
-                $data_check_arr[] = $key.'='.$value;
+                $item = (is_string($value) || is_numeric($value)) ? (string) $value : '';
+                $data_check_arr[] = $key.'='.$item;
             }
         }
 
         sort($data_check_arr);
 
-        $this->payload['hash'] = hash_hmac('sha256', implode("\n", $data_check_arr), hash('sha256', config('telegramloginwidget.bot-token'), true));
+        $botToken = config('telegramloginwidget.bot-token');
+        $botToken = is_string($botToken) ? $botToken : '';
+
+        $this->payload['hash'] = hash_hmac('sha256', implode("\n", $data_check_arr), hash('sha256', $botToken, true));
     }
 }

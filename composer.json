@@ -12,13 +12,15 @@
     "homepage": "https://github.com/pschocke/telegramloginwidget",
     "keywords": ["Laravel", "TelegramLoginWidget"],
     "require": {
-        "illuminate/support": "~9"
+        "php": "^8.4",
+        "illuminate/support": "^12.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9",
-        "mockery/mockery": "^1.1",
-        "orchestra/testbench": "~7",
-        "sempro/phpunit-pretty-print": "^1.0"
+        "phpunit/phpunit": "^11.0",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^10.0",
+        "sempro/phpunit-pretty-print": "^1.0",
+        "larastan/larastan": "^3.9"
     },
     "autoload": {
         "psr-4": {
@@ -36,7 +38,7 @@
                 "pschocke\\TelegramLoginWidget\\TelegramLoginWidgetServiceProvider"
             ],
             "aliases": {
-                "MyPackage": "pschocke\\TelegramLoginWidget\\Facades\\MyPackage"
+                "TelegramLoginWidget": "pschocke\\TelegramLoginWidget\\Facades\\TelegramLoginWidget"
             }
         }
     }

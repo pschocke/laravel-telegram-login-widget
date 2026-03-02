@@ -8,10 +8,8 @@ class TelegramLoginWidgetServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
@@ -21,10 +19,8 @@ class TelegramLoginWidgetServiceProvider extends ServiceProvider
 
     /**
      * Register any package services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/telegramloginwidget.php', 'telegramloginwidget');
 
@@ -35,10 +31,8 @@ class TelegramLoginWidgetServiceProvider extends ServiceProvider
 
     /**
      * Console-specific booting.
-     *
-     * @return void
      */
-    protected function bootForConsole()
+    protected function bootForConsole(): void
     {
         // Publishing the configuration file.
         $this->publishes([
