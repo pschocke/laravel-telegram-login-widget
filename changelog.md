@@ -5,6 +5,7 @@
 ### Added
 - Support for PHP 8.4 and 8.5.
 - Support for Laravel 12.
+- Support for Larastan at level 9.
 - Modernized codebase with PHP 8.2+ features (readonly classes, mixed types, union types).
 - Migrated test annotations to PHP attributes (`#[Test]`).
 
@@ -13,7 +14,8 @@
 - Minimum Laravel requirement bumped to `^12.0`.
 - Updated to PHPUnit 11.
 - Updated to Orchestra Testbench 10.
-- Updated GitHub Actions CI to test against PHP 8.4/8.5 and Laravel 12.
+- Updated to Larastan 3.0.
+- Updated GitHub Actions CI to test against PHP 8.4/8.5 and Laravel 12, including static analysis.
 - Updated `phpunit.xml` to the modern configuration schema.
 
 ### Fixed
