@@ -2,10 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-![run-tests](https://github.com/pschocke/laravel-telegram-login-widget/workflows/run-tests/badge.svg?branch=master)
-[![Quality Score][ico-scrutinizer]][link-scrutinizer]
-[![StyleCI][ico-styleci]][link-styleci]
-[![codecov][ico-codecov]][link-codecov]
+![run-tests](https://github.com/pschocke/laravel-telegram-login-widget/actions/workflows/run-tests.yml/badge.svg)
 
 Laravel Telegram Login Widget. Easily integrate Telegrams login widget to send Telegram messages.
 
@@ -100,16 +97,8 @@ MIT. Please see the [license file](license.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/pschocke/laravel-telegram-login-widget.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/pschocke/laravel-telegram-login-widget.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/pschocke/laravel-telegram-login-widget/master.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/242549196/shield
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/pschocke/laravel-telegram-login-widget.svg?style=flat-square
-[ico-codecov]: https://codecov.io/gh/pschocke/laravel-telegram-login-widget/branch/master/graph/badge.svg
 
 [link-packagist]: https://packagist.org/packages/pschocke/laravel-telegram-login-widget
 [link-downloads]: https://packagist.org/packages/pschocke/laravel-telegram-login-widget
-[link-travis]: https://travis-ci.org/pschocke/laravel-telegram-login-widget
-[link-styleci]: https://styleci.io/repos/242549196
-[link-scrutinizer]: https://scrutinizer-ci.com/g/pschocke/laravel-telegram-login-widget
-[link-codecov]: https://codecov.io/gh/pschocke/laravel-telegram-login-widget
 [link-author]: https://github.com/pschocke
 [link-contributors]: ../../contributors

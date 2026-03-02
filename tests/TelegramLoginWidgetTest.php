@@ -11,7 +11,7 @@ use pschocke\TelegramLoginWidget\TelegramLoginWidget as NormalTelegramLoginWidge
 
 class TelegramLoginWidgetTest extends TestCase
 {
-    private $payload;
+    private array $payload;
 
     protected function setUp(): void
     {
@@ -29,13 +29,13 @@ class TelegramLoginWidgetTest extends TestCase
         $this->generateHash();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_can_validate_a_valid_response_via_the_hash()
     {
         $this->assertInstanceOf(Collection::class, (new NormalTelegramLoginWidget())->validate($this->payload));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_can_validate_an_invalid_response_via_the_hash()
     {
         $this->payload['id'] = 1;
@@ -44,7 +44,7 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertFalse(TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_works_with_optional_fields_in_response()
     {
         $this->payload['last_name'] = '';
@@ -52,7 +52,7 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_ignores_other_parameter()
     {
         $this->payload['test'] = 2;
@@ -60,7 +60,7 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertEmpty($validTelegramData->get('test'));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_checks_the_auth_date_by_default()
     {
         $this->payload['auth_date'] = time() - 100000;
@@ -71,7 +71,7 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertFalse(TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_ignores_the_auth_date_when_configured()
     {
         $this->payload['auth_date'] = time() - 100000;
@@ -82,7 +82,7 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($this->payload));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_can_handle_a_response_as_function_parameter()
     {
         $data = new Request();
@@ -90,7 +90,7 @@ class TelegramLoginWidgetTest extends TestCase
         $this->assertInstanceOf(Collection::class, TelegramLoginWidget::validate($data));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_sets_the_correct_values_in_the_collection()
     {
         $telegramUser = (new NormalTelegramLoginWidget())->validate($this->payload);

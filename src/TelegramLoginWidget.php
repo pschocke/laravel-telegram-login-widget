@@ -8,13 +8,13 @@ use pschocke\TelegramLoginWidget\Exceptions\HashValidationException;
 use pschocke\TelegramLoginWidget\Exceptions\ResponseOutdatedException;
 use pschocke\TelegramLoginWidget\Exceptions\TelegramException;
 
-class TelegramLoginWidget
+final readonly class TelegramLoginWidget
 {
     /**
-     * @param $response
+     * @param array|Request|Collection $response
      * @return bool|Collection
      */
-    public function validate($response)
+    public function validate(mixed $response): bool|Collection
     {
         try {
             return $this->validateWithError($response);
@@ -25,13 +25,13 @@ class TelegramLoginWidget
     }
 
     /**
-     * @param $response
+     * @param array|Request|Collection $response
      * @return Collection
      *
      * @throws HashValidationException
      * @throws ResponseOutdatedException
      */
-    public function validateWithError($response): Collection
+    public function validateWithError(mixed $response): Collection
     {
         $response = $this->convertResponseToCollection($response);
 
@@ -85,10 +85,10 @@ class TelegramLoginWidget
     }
 
     /**
-     * @param $response
+     * @param array|Request|Collection $response
      * @return Collection
      */
-    private function convertResponseToCollection($response): Collection
+    private function convertResponseToCollection(mixed $response): Collection
     {
         if ($response instanceof Request) {
             return collect($response->all());
